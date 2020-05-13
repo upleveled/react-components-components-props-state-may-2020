@@ -58,6 +58,8 @@ export default function Header(props) {
           alert('Thanks for submitting, ' + email);
         }}
       />
+      <TicTacToe />
+      {/* <Statistics /> */}
     </header>
   );
 }
