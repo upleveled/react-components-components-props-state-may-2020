@@ -1,14 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import Counter from './Counter.js';
-import Form from './Form';
+import Form from './Form-class-component';
+import TicTacToe from './TicTacToe';
+
+const colors = ['blue', 'green', 'turquoise', 'tomato'];
 
 export default function Header(props) {
   console.log(props); // {darkMode: true}
   console.log(props.darkMode); // true
+
+  const [color, setColor] = useState('tomato');
+
   return (
-    <header className="App-header">
+    <header
+      style={{
+        backgroundColor: color,
+      }}
+      className="App-header"
+    >
       <img src={logo} className="App-logo" alt="logo" />
+
+      <button
+        onClick={() => {
+          const randomIndex =
+            // Round down so that we get 0-index
+            Math.floor(
+              // Get a random number
+              Math.random() *
+                // And multiply by the length of the array
+                colors.length,
+            );
+
+          setColor(colors[randomIndex]);
+        }}
+        style={{ border: '2px solid turquoise' }}
+      >
+        Change color
+      </button>
+
       <p>
         Dark mode is:{' '}
         {
