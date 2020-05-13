@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function Form({ onSubmit }) {
+export default function Form(props) {
   // Controlled Component
   // Step 1: Declare a state variable
   const [email, setEmail] = useState('');
@@ -25,7 +25,7 @@ export default function Form({ onSubmit }) {
         />
       </label>
 
-      <button type="button" onClick={() => onSubmit(email)}>
+      <button type="button" onClick={() => props.onSubmit(email)}>
         Sign up!
       </button>
 
