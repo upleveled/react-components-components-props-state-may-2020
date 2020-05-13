@@ -3,12 +3,21 @@ import logo from './logo.svg';
 import Counter from './Counter.js';
 import Form from './Form-class-component';
 import TicTacToe from './TicTacToe';
+import Statistics from './Statistics';
 
 const colors = ['blue', 'green', 'turquoise', 'tomato'];
 
 export default function Header(props) {
   console.log(props); // {darkMode: true}
   console.log(props.darkMode); // true
+
+  // Lifting Up State
+  // 1. Cut and paste state variable from child
+  const [history, setHistory] = useState([
+    {
+      squares: Array(9).fill(null),
+    },
+  ]);
 
   const [color, setColor] = useState('tomato');
 
@@ -58,8 +67,21 @@ export default function Header(props) {
           alert('Thanks for submitting, ' + email);
         }}
       />
-      <TicTacToe />
-      {/* <Statistics /> */}
+
+      <h1>Tic Tac Toe</h1>
+      <TicTacToe
+        // Lifting Up State
+        // 2. Pass in `history` and `setHistory` as props to the original child
+        history={history}
+        setHistory={setHistory}
+      />
+
+      <h1>Game Statistics</h1>
+      <Statistics
+        // Lifting Up State
+        // 4. Pass state to any further children that need it
+        numberOfMoves={history.length - 1}
+      />
     </header>
   );
 }

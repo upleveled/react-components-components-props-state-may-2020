@@ -41,17 +41,14 @@ class Board extends React.Component {
   }
 }
 
-export default function Game(props) {
-  const [history, setHistory] = useState([
-    {
-      squares: Array(9).fill(null),
-    },
-  ]);
+export default function TicTacToe(props) {
   const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
 
   function handleClick(i) {
-    const historyDerived = history.slice(0, stepNumber + 1);
+    // Lifting Up State
+    // 3. Change `history` to `props.history`
+    const historyDerived = props.history.slice(0, stepNumber + 1);
     const current = historyDerived[historyDerived.length - 1];
     const squares = current.squares.slice();
 
@@ -60,7 +57,9 @@ export default function Game(props) {
     }
 
     squares[i] = xIsNext ? 'X' : 'O';
-    setHistory(
+    // Lifting Up State
+    // 3. Change `setHistory` to `props.setHistory`
+    props.setHistory(
       historyDerived.concat([
         {
           squares: squares,
@@ -76,10 +75,14 @@ export default function Game(props) {
     setXIsNext(step % 2 === 0);
   }
 
-  const current = history[stepNumber];
+  // Lifting Up State
+  // 3. Change `history` to `props.history`
+  const current = props.history[stepNumber];
   const winner = calculateWinner(current.squares);
 
-  const moves = history.map((step, move) => {
+  // Lifting Up State
+  // 3. Change `history` to `props.history`
+  const moves = props.history.map((step, move) => {
     const desc = move ? 'Go to move #' + move : 'Go to game start';
     return (
       <li key={move}>
@@ -100,10 +103,13 @@ export default function Game(props) {
       <div className="game-board">
         <Board squares={current.squares} onClick={(i) => handleClick(i)} />
       </div>
-      <div className="game-info">
-        <div>{status}</div>
-        <ol>{moves}</ol>
-      </div>
+      <details>
+        <summary>Game Info</summary>
+        <div className="game-info">
+          <div>{status}</div>
+          <ol>{moves}</ol>
+        </div>
+      </details>
     </div>
   );
 }
