@@ -1,4 +1,31 @@
 import React, { useState } from 'react';
+/** @jsxFrag React.Fragment */
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
+
+const bgColor = 'lightgray';
+
+const Button = (props) => {
+  console.log(props.tooHigh);
+
+  return (
+    <button
+      css={css`
+        font-size: 3rem;
+        padding: 1.5rem;
+        border-radius: 8px;
+        background-color: ${//
+        // condition ? whatYouGetIfItsTrue : whatYouGetIfItsFalse
+        props.tooHigh === true ? 'red' : bgColor};
+
+        & + * {
+          margin-left: 20px;
+        }
+      `}
+      {...props}
+    />
+  );
+};
 
 // Keep track of the count of the counter
 export default function Counter() {
@@ -10,26 +37,35 @@ export default function Counter() {
     <>
       {count}
 
-      <button
-        onClick={() => {
-          // This is like the following code
-          // count = count + 1;
-          // count++;
-          setCount(count + 1);
-        }}
+      <div
+        css={css`
+          display: flex;
+          margin: 2rem;
+        `}
       >
-        +
-      </button>
-      <button
-        onClick={() => {
-          // This is like the following code
-          // count = count - 1;
-          // count--;
-          setCount(count - 1);
-        }}
-      >
-        -
-      </button>
+        <Button
+          onClick={() => {
+            // This is like the following code
+            // count = count + 1;
+            // count++;
+            setCount(count + 1);
+          }}
+          tooHigh={count > 5}
+        >
+          +
+        </Button>
+        <Button
+          onClick={() => {
+            // This is like the following code
+            // count = count - 1;
+            // count--;
+            setCount(count - 1);
+          }}
+          tooHigh={count > 5}
+        >
+          -
+        </Button>
+      </div>
     </>
   );
 }
