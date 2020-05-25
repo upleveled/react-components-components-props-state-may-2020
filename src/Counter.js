@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 /** @jsxFrag React.Fragment */
 /** @jsx jsx */
@@ -8,6 +9,7 @@ const bgColor = 'lightgray';
 const Button = (props) => {
   console.log(props.tooHigh);
 
+  const { tooHigh, ...elementProps } = props;
   return (
     <button
       css={css`
@@ -22,7 +24,7 @@ const Button = (props) => {
           margin-left: 20px;
         }
       `}
-      {...props}
+      {...elementProps}
     />
   );
 };

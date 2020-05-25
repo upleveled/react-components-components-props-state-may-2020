@@ -4,6 +4,7 @@ import Counter from './Counter.js';
 import Form from './Form-class-component';
 import TicTacToe from './TicTacToe';
 import Statistics from './Statistics';
+import Button from './Button.jsx';
 
 const colors = ['blue', 'green', 'turquoise', 'tomato'];
 
@@ -82,6 +83,24 @@ export default function Header(props) {
         // 4. Pass state to any further children that need it
         numberOfMoves={history.length - 1}
       />
+
+      <h1>Button Children Props example</h1>
+
+      <Button
+        appearance="primary"
+        // This would cause an error with propTypes:
+        // appearance="hamed"
+        // This too:
+        // appearance={1}
+      >
+        <span role="img" aria-label="100">
+          💯
+        </span>{' '}
+        fdsa<div>asdf</div>
+      </Button>
+
+      <br />
+      <br />
     </header>
   );
 }
